@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitLife | Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+        }
+        .step {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .step.active {
+            display: block;
+            opacity: 1;
+        }
+        #platformInfo.hidden {
+            display: none;
+        }
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .progress-step {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .progress-step.active {
+            background: #4CAF50;
+            color: white;
+        }
+        .progress-line {
+            flex-grow: 1;
+            height: 4px;
+            background: #e5e7eb;
+            transition: background 0.3s ease;
+        }
+        .progress-line.active {
+            background: #4CAF50;
+        }
+        input, select {
+            transition: all 0.3s ease;
+        }
+        input:focus, select:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+        .btn-gradient:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-100">
+    <div class="min-h-screen flex flex-col md:flex-row">
+        <!-- Left Side - Platform Info -->
+        <div id="platformInfo" class="gradient-bg text-white p-8 md:w-1/2 flex flex-col justify-center">
+            <div class="max-w-md mx-auto">
+                <h1 class="text-4xl font-bold mb-6 animate-pulse">Join FitLife</h1>
+                <p class="text-xl mb-8">Start your fitness and nutrition journey today</p>
+                
+                <div class="space-y-6 mb-10">
+                    <div class="flex items-start card-hover">
+                        <div class="bg-white bg-opacity-20 rounded-full p-3 mr-4">
+                            <i class="fas fa-dumbbell text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Expert Guidance</h3>
+                            <p class="text-gray-200">Get access to professionally designed workout and diet plans.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start card-hover">
+                        <div class="bg-white bg-opacity-20 rounded-full p-3 mr-4">
+                            <i class="fas fa-bullseye text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Goal Tracking</h3>
+                            <p class="text-gray-200">Set and track your fitness goals with our intuitive dashboard.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start card-hover">
+                        <div class="bg-white bg-opacity-20 rounded-full p-3 mr-4">
+                            <i class="fas fa-users text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Community Support</h3>
+                            <p class="text-gray-200">Connect with like-minded people on similar fitness journeys.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="login.html" class="inline-block border-2 border-white text-white font-bold py-3 px-6 rounded-full hover:bg-white hover:bg-opacity-20 transition duration-300">
+                    Already have an account? Sign In
+                </a>
+            </div>
+        </div>
+        
+        <!-- Right Side - Registration Form -->
+        <div class="bg-white p-8 md:w-1/2 flex flex-col justify-center flex-grow">
+            <div class="max-w-md mx-auto w-full">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Create Your Account</h2>
+                
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <div class="progress-step active">1</div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step">2</div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step">3</div>
+                </div>
+                
+                <!-- Registration Steps -->
+                <form id="registrationForm" class="space-y-6" action="home.html" method="GET">
+                    <!-- Step 1: Account Type -->
+                    <div id="step1" class="step active">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-6">Choose Your Account Type</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="card-hover">
+                                <input type="radio" name="accountType" id="fitnessAccount" value="fitness" class="hidden peer" checked>
+                                <label for="fitnessAccount" class="flex flex-col items-center justify-center p-6 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-green-300 peer-checked:border-green-500 peer-checked:bg-green-50 transition duration-200">
+                                    <div class="bg-green-100 p-4 rounded-full mb-3">
+                                        <i class="fas fa-dumbbell text-green-600 text-xl"></i>
+                                    </div>
+                                    <h4 class="font-medium text-gray-800">Fitness Account</h4>
+                                    <p class="text-sm text-gray-500 text-center mt-1">Workout plans, exercise tracking, and fitness analytics</p>
+                                </label>
+                            </div>
+                            
+                            <div class="card-hover">
+                                <input type="radio" name="accountType" id="dietAccount" value="diet" class="hidden peer">
+                                <label for="dietAccount" class="flex flex-col items-center justify-center p-6 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-green-300 peer-checked:border-green-500 peer-checked:bg-green-50 transition duration-200">
+                                    <div class="bg-green-100 p-4 rounded-full mb-3">
+                                        <i class="fas fa-utensils text-green-600 text-xl"></i>
+                                    </div>
+                                    <h4 class="font-medium text-gray-800">Diet Account</h4>
+                                    <p class="text-sm text-gray-500 text-center mt-1">Meal plans, nutrition tracking, and dietary analytics</p>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <button type="button" id="nextToStep2" class="w-full btn-gradient text-white font-bold py-3 px-4 rounded-lg">
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2: Personal Details -->
+                    <div id="step2" class="step">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-6">Personal Information</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label for="fullName" class="block text-gray-700 font-medium mb-2">Full Name</label>
+                                <input type="text" id="fullName" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Your full name" required>
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded -lg" placeholder="Your email address" required>
+                            </div>
+                            
+                            <div>
+                                <label for="password" class="block text-gray-700 font-medium mb-2">Password</label>
+                                <input type="password" id="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Create a password" required>
+                                <p class="text-xs text-gray-500 mt-1">Minimum 8 characters with at least one number</p>
+                            </div>
+                            
+                            <div>
+                                <label for="confirmPassword" class="block text-gray-700 font-medium mb-2">Confirm Password</label>
+                                <input type="password" id="confirmPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Confirm your password" required>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label for="age" class="block text-gray-700 font-medium mb-2">Age</label>
+                                    <input type="number" id="age" min="13" max="120" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Age" required>
+                                </div>
+                                
+                                <div>
+                                    <label for="gender" class="block text-gray-700 font-medium mb-2">Gender</label>
+                                    <select id="gender" class="w-full px-4 py-3 border border-gray-300 rounded-lg" required>
+                                        <option value="" disabled selected>Select gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                        <option value="prefer-not-to-say">Prefer not to say</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 flex justify-between">
+                            <button type="button" id="backToStep1" class="text-green-600 font-medium hover:text-green-500 py-2 px-4">
+                                <i class="fas fa-arrow-left mr-2"></i> Back
+                            </button>
+                            <button type="button" id="nextToStep3" class="btn-gradient text-white font-bold py-2 px-6 rounded-lg">
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3: Complete Registration -->
+                    <div id="step3" class="step">
+                        <div class="text-center">
+                            <div class="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
+                                <i class="fas fa-check text-green-600 text-3xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">Complete Your Registration</h3>
+                            <p class="text-gray-600 mb-8">Review your information and click "Complete Registration" to finish</p>
+                            
+                            <div class="bg-gray-50 p-6 rounded-lg mb-8 text-left border-t-4 border-green-500">
+                                <div class="flex justify-between border-b border-gray-200 pb-3 mb-3">
+                                    <span class="text-gray-600">Account Type:</span>
+                                    <span id="reviewAccountType" class="font-medium text-gray-800"></span>
+                                </div>
+                                <div class="flex justify-between border-b border-gray-200 pb-3 mb-3">
+                                    <span class="text-gray-600">Name:</span>
+                                    <span id="reviewFullName" class="font-medium text-gray-800"></span>
+                                </div>
+                                <div class="flex justify-between border-b border-gray-200 pb-3 mb-3">
+                                    <span class="text-gray-600">Email:</span>
+                                    <span id="reviewEmail" class="font-medium text-gray-800"></span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Age/Gender:</span>
+                                    <span id="reviewAgeGender" class="font-medium text-gray-800"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center mb-6">
+                                <input type="checkbox" id="termsAgreement" class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded" required>
+                                <label for="termsAgreement" class="ml-2 block text-sm text-gray-700">
+                                    I agree to the <a href="#" class="text-green-600 hover:text-green-500">Terms of Service</a> and <a href="#" class ="text-green-600 hover:text-green-500">Privacy Policy</a>
+                                </label>
+                            </div>
+                            
+                            <a href="home.html" class="w-full btn-gradient text-white font-bold py-3 px-4 rounded-lg mb-4 text-center block">
+                                Complete Registration
+                            </a>
+                            
+                            <button type="button" id="backToStep2" class="text-green-600 font-medium hover:text-green-500">
+                                <i class="fas fa-arrow-left mr-2"></i> Back to edit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextToStep2 = document.getElementById('nextToStep2');
+            const nextToStep3 = document.getElementById('nextToStep3');
+            const backToStep1 = document.getElementById('backToStep1');
+            const backToStep2 = document.getElementById('backToStep2');
+            const registrationForm = document.getElementById('registrationForm');
+
+            // Function to update progress indicators
+            function updateProgress(step) {
+                document.querySelectorAll('.progress-step').forEach((ps, index) => {
+                    ps.classList.toggle('active', index < step);
+                });
+                document.querySelectorAll('.progress-line').forEach((pl, index) => {
+                    pl.classList.toggle('active', index < step - 1);
+                });
+            }
+
+            // Step 1 to Step 2 transition
+            nextToStep2.addEventListener('click', function() {
+                document.getElementById('step1').classList.remove('active');
+                document.getElementById('step2').classList.add('active');
+                updateProgress(2);
+            });
+
+            // Back to Step 1
+            backToStep1.addEventListener('click', function() {
+                document.getElementById('step2').classList.remove('active');
+                document.getElementById('step1').classList.add('active');
+                updateProgress(1);
+            });
+
+            // Step 2 to Step 3 transition
+            nextToStep3.addEventListener('click', function() {
+                const fullName = document.getElementById('fullName').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                const age = document.getElementById('age').value;
+                const gender = document.getElementById('gender').value;
+
+                // Validation
+                if (!fullName || !email || !password || !confirmPassword || !age || !gender) {
+                    alert('Please fill in all fields');
+                    return;
+                }
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match');
+                    return;
+                }
+                if (password.length < 8 || !/\d/.test(password)) {
+                    alert('Password must be at least 8 characters long and contain at least one number');
+                    return;
+                }
+
+                // Update review information
+                document.getElementById('reviewAccountType').textContent = document.querySelector('input[name="accountType"]:checked').value === 'fitness' ? 'Fitness Account' : 'Diet Account';
+                document.getElementById('reviewFullName').textContent = fullName;
+                document.getElementById('reviewEmail').textContent = email;
+                document.getElementById('reviewAgeGender').textContent = `${age} / ${gender.charAt(0).toUpperCase() + gender.slice(1)}`;
+
+                // Transition to Step 3
+                document.getElementById('step2').classList.remove('active');
+                document.getElementById('step3').classList.add('active');
+                updateProgress(3);
+            });
+
+            // Back to Step 2
+            backToStep2.addEventListener('click', function() {
+                document.getElementById('step3').classList.remove('active');
+                document.getElementById('step2').classList.add('active');
+                updateProgress(2);
+            });
+
+            updateProgress(1); // Initialize progress bar
+        });
+    </script>
+</body>
+</html>

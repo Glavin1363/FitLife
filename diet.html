@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitLife | Nutrition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #2196F3;
+            --accent-color: #FF9800;
+            --danger-color: #F44336;
+            --light-color: #f5f7fa;
+            --dark-color: #263238;
+            --text-color: #333;
+            --text-light: #777;
+            --white: #fff;
+            --gray: #f8f9fa;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--light-color);
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 20px 0;
+            position: fixed;
+            height: 100%;
+            transition: var(--transition);
+        }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .user-info h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .user-info p {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .sidebar-menu {
+            padding: 0 10px;
+        }
+
+        .menu-item {
+            margin-bottom: 5px;
+        }
+
+        .menu-item a, .menu-item button {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: var(--white);
+            opacity: 0.8;
+            border-radius: 5px;
+            transition: var(--transition);
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .menu-item a:hover, .menu-item a.active, .menu-item button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            opacity: 1;
+        }
+
+        .menu-item a i, .menu-item button i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .menu-item a.active {
+            background-color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card-inner.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            backface-visibility: hidden;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-profile">
+                    <div class="user-avatar"> JD</div>
+                    <div class="user-info">
+                        <h3>John Doe</h3>
+                        <p>Fitness Enthusiast</p>
+                    </div>
+                </div>
+                <label for="meal-type" class="block text-gray-400 mb-2">Filter Meals:</label>
+                <select id="meal-type" class="w-full p-2 rounded bg-gray-700 text-white">
+                    <option value="all">All</option>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="dinner">Dinner</option>
+                    <option value="snack">Snack</option>
+                </select>
+            </div>
+            <div class="sidebar-menu">
+                <div class="menu-item">
+                    <a href="dasboard.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="profile.html">
+                        <i class="fas fa-user"></i>
+                        <span>My Profile</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="workouts.html">
+                        <i class="fas fa-dumbbell"></i>
+                        <span>Workouts</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="diet.html" class="active">
+                        <i class="fas fa-utensils"></i>
+                        <span>Diet</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="progress.html">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Progress</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="challenges.html">
+                        <i class="fas fa-trophy"></i>
+                        <span>Challenges</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="community.html">
+                        <i class="fas fa-users"></i>
+                        <span>Community</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <button id="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="flex-1 ml-64 p-6">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h1 class="text-2xl font-semibold">Nutrition Plans</h1>
+                    <p class="text-gray-600">Manage your diet and meal plans</p>
+                </div>
+                <div class="lg:hidden">
+                    <i class="fas fa-bars text-2xl"></i>
+                </div>
+            </div>
+            <div class="mb-6">
+                <input type="text" id="search" placeholder="Search meals..." class="w-full p-2 rounded border border-gray-300">
+            </div>
+            <div class="bg-white p-6 rounded shadow">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-semibold">My Meal Plans</h2>
+                    <a href="custom-meal.html" class="bg-green-500 text-white py-2 px-4 rounded">Create Custom Meal</a>
+                </div>
+                <div id="meal-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Meal cards will be dynamically inserted here -->
+                </div>
+                <div class="mt-6 flex justify-center" id="pagination">
+                    <!-- Pagination links will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mealsPerPage = 6;
+            let currentPage = 1;
+            
+            // Meal images from Pexels API
+            const mealImages = {
+                "breakfast": "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg",
+                "lunch": "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg",
+                "dinner": "https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg",
+ "snack": "https://images.pexels.com/photos/132694/pexels-photo-132694.jpeg"
+            };
+
+            const meals = [
+                { 
+                    name: "Protein Pancakes", 
+                    type: "breakfast", 
+                    calories: 350, 
+                    day: "Mon", 
+                    time: "7:30 AM", 
+                    macros: "P: 30g, C: 40g, F: 10g",
+                    ingredients: ["Oats", "Egg whites", "Protein powder", "Banana"],
+                    instructions: "Blend ingredients and cook on low heat"
+                },
+                { 
+                    name: "Grilled Chicken Salad", 
+                    type: "lunch", 
+                    calories: 450, 
+                    day: "Mon", 
+                    time: "12:30 PM", 
+                    macros: "P: 40g, C: 20g, F: 15g",
+                    ingredients: ["Chicken breast", "Mixed greens", "Cherry tomatoes", "Avocado"],
+                    instructions: "Grill chicken and toss with fresh vegetables"
+                },
+                { 
+                    name: "Salmon with Quinoa", 
+                    type: "dinner", 
+                    calories: 500, 
+                    day: "Mon", 
+                    time: "7:00 PM", 
+                    macros: "P: 35g, C: 45g, F: 20g",
+                    ingredients: ["Salmon fillet", "Quinoa", "Broccoli", "Lemon"],
+                    instructions: "Bake salmon and serve with cooked quinoa"
+                },
+                { 
+                    name: "Greek Yogurt with Berries", 
+                    type: "snack", 
+                    calories: 200, 
+                    day: "Mon", 
+                    time: "3:30 PM", 
+                    macros: "P: 15g, C: 25g, F: 5g",
+                    ingredients: ["Greek yogurt", "Mixed berries", "Almonds"],
+                    instructions: "Combine ingredients and enjoy"
+                },
+                { 
+                    name: "Avocado Toast", 
+                    type: "breakfast", 
+                    calories: 300, 
+                    day: "Tue", 
+                    time: "7:00 AM", 
+                    macros: "P: 10g, C: 30g, F: 15g",
+                    ingredients: ["Whole grain bread", "Avocado", "Egg", "Chili flakes"],
+                    instructions: "Toast bread, mash avocado, top with poached egg"
+                },
+                { 
+                    name: "Turkey Wrap", 
+                    type: "lunch", 
+                    calories: 400, 
+                    day: "Tue", 
+                    time: "12:45 PM", 
+                    macros: "P: 25g, C: 35g, F: 12g",
+                    ingredients: ["Whole wheat tortilla", "Turkey breast", "Spinach", "Hummus"],
+                    instructions: "Spread hummus, add ingredients, and roll"
+                },
+                { 
+                    name: "Beef Stir Fry", 
+                    type: "dinner", 
+                    calories: 550, 
+                    day: "Tue", 
+                    time: "7:15 PM", 
+                    macros: "P: 45g, C: 40g, F: 25g",
+                    ingredients: ["Lean beef", "Brown rice", "Mixed vegetables", "Soy sauce"],
+                    instructions: "Stir fry beef and vegetables, serve with rice"
+                },
+                { 
+                    name: "Protein Smoothie", 
+                    type: "snack", 
+                    calories: 250, 
+                    day: "Tue", 
+                    time: "4:00 PM", 
+                    macros: "P: 30g, C: 20g, F: 5g",
+                    ingredients: ["Protein powder", "Almond milk", "Peanut butter", "Banana"],
+                    instructions: "Blend all ingredients until smooth"
+                },
+                { 
+                    name: "Oatmeal with Nuts", 
+                    type: "breakfast", 
+                    calories: 350, 
+                    day: "Wed", 
+                    time: "7:15 AM", 
+                    macros: "P: 15g, C: 50g, F: 12g",
+                    ingredients: ["Oats", "Almonds", "Walnuts", "Honey"],
+                    instructions: "Cook oats and top with nuts and honey"
+                },
+                { 
+                    name: "Quinoa Bowl", 
+                    type: "lunch", 
+                    calories: 420, 
+                    day: "Wed", 
+                    time: "1:00 PM", 
+                    macros: "P: 20g, C: 55g, F: 15g",
+                    ingredients: ["Quinoa", "Chickpeas", "Cucumber", "Feta cheese"],
+                    instructions: "Combine all ingredients in a bowl"
+                },
+                { 
+                    name: "Grilled Shrimp", 
+                    type: "dinner", 
+                    calories: 480, 
+                    day: "Wed", 
+                    time: "7:30 PM", 
+                    macros: "P: 50g, C: 30g, F: 18g",
+                    ingredients: ["Shrimp", "Asparagus", "Sweet potato", "Garlic"],
+                    instructions: "Grill shrimp and serve with sides"
+                },
+                { 
+                    name: "Trail Mix", 
+                    type: "snack", 
+                    calories: 180, 
+                    day: "Wed", 
+                    time: "3:45 PM", 
+                    macros: "P: 8g, C: 20g, F: 10g",
+                    ingredients: ["Almonds", "Cashews", "Dried cranberries", "Dark chocolate"],
+                    instructions: "Mix all ingredients together"
+                }
+            ];
+
+            function getMealImage(mealType) {
+                return mealImages[mealType] || "https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg";
+            }
+
+            function displayMeals() {
+                const filter = document.getElementById('meal-type').value;
+                const searchQuery = document.getElementById('search').value.toLowerCase();
+                const filteredMeals = meals.filter(m => 
+                    (filter === 'all' || m.type.toLowerCase() === filter.toLowerCase()) &&
+                    m.name.toLowerCase().includes(searchQuery)
+                );
+                const start = (currentPage - 1) * mealsPerPage;
+                const end = start + mealsPerPage;
+                const paginatedMeals = filteredMeals.slice(start, end);
+
+                const mealList = document.getElementById('meal-list');
+                mealList.innerHTML = '';
+                paginatedMeals.forEach(meal => {
+                    const card = document.createElement('div');
+                    card.className = 'meal-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow';
+                    card.innerHTML = `
+                        <div class="card-inner h-80 relative" onclick="this.classList.toggle('flipped')">
+                            <div class="card-front absolute w-full h-full">
+                                <img src="${getMealImage(meal.type)}" alt="${meal.name}" 
+                                     class="w-full h-48 object-cover">
+                                <div class="p-4">
+                                    <h3 class="text-lg font-semibold mb-2">${meal.name}</h3>
+                                    <div class="flex justify-between text-sm text-gray-600">
+                                        <span class="capitalize">${meal.type}</span>
+                                        <span>${meal.calories} kcal</span>
+                                    </div>
+                                    <div class="mt-2">
+                                        <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                                            ${meal.macros}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-back absolute w-full h-full bg-gray-800 text-white p-4">
+                                <h3 class="text-xl font-bold mb-2">${meal.name}</h3>
+                                <p class="mb-1"><i class="fas fa-clock mr-2"></i> ${meal.day} @ ${meal.time}</p>
+                                <p class="mb-1"><i class="fas fa-fire mr-2"></i> ${meal.calories} calories</p>
+                                <p class="mb-1"><i class="fas fa-utensils mr-2"></i> ${meal.macros}</p>
+                                <div class="mt-3 text-sm">
+                                    <p class="font-semibold">Ingredients:</p>
+                                    <p>${meal.ingredients.join(', ')}</p>
+                                </div>
+                                <p class="mt-3 text-xs">Click to flip back</p>
+                            </div>
+                        </div>
+                    `;
+                    mealList.appendChild(card);
+                });
+
+                updatePagination(filteredMeals.length);
+            }
+
+            function updatePagination(totalMeals) {
+                const totalPages = Math.ceil(totalMeals / mealsPerPage);
+                const pagination = document.getElementById('pagination');
+                pagination.innerHTML = '';
+                for (let i = 1; i <= totalPages; i++) {
+                    const link = document.createElement('a');
+                    link.href = '#';
+                    link.textContent = i;
+                    link.className = 'py-2 px-4 border border-green-500 rounded text-green-500 hover:bg-green-500 hover:text-white mx-1';
+                    if (i === currentPage) link.classList.add('bg-green-500', 'text-white');
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+ currentPage = i;
+                        displayMeals();
+                    });
+                    pagination.appendChild(link);
+                }
+            }
+
+            document.getElementById('meal-type').addEventListener('change', () => {
+                currentPage = 1;
+                displayMeals();
+            });
+
+            document.getElementById('search').addEventListener('input', () => {
+                currentPage = 1;
+                displayMeals();
+            });
+
+            document.getElementById('logout-btn').addEventListener('click', function() {
+                alert('You have been logged out. Redirecting to login page...');
+                window.location.href = 'login.html';
+            });
+
+            displayMeals();
+        });
+    </script>
+</body>
+</html>

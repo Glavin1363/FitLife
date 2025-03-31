@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitLife | Progress</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #2196F3;
+            --accent-color: #FF9800;
+            --danger-color: #F44336;
+            --light-color: #f5f7fa;
+            --dark-color: #263238;
+            --text-color: #333;
+            --text-light: #777;
+            --white: #fff;
+            --gray: #f8f9fa;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--light-color);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 20px 0;
+            position: fixed;
+            height: 100%;
+            transition: var(--transition);
+        }
+        
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+        
+        .user-info h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        .user-info p {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        
+        .sidebar-menu {
+            padding: 0 10px;
+        }
+        
+        .menu-item {
+            margin-bottom: 5px;
+        }
+        
+        .menu-item a, .menu-item button {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: var(--white);
+            opacity: 0.8;
+            border-radius: 5px;
+            transition: var(--transition);
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+        
+        .menu-item a:hover, .menu-item a.active, .menu-item button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            opacity: 1;
+        }
+        
+        .menu-item a i, .menu-item button i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .menu-item a.active {
+            background-color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 30px;
+            transition: var(--transition);
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .page-title h1 {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+        }
+        
+        .page-title p {
+            color: var(--text-light);
+        }
+        
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card.primary {
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .stat-card.secondary {
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .stat-card.accent {
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .stat-card.danger {
+            border-left: 4px solid var(--danger-color);
+        }
+        
+        .stat-card h3 {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+        
+        .stat-card .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card .stat-change {
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .stat-card .stat-change.positive {
+            color: var(--primary-color);
+        }
+        
+        .stat-card .stat-change.negative {
+            color: var(--danger-color);
+        }
+        
+        .stat-card .stat-change i {
+            margin-right: 5px;
+        }
+        
+        .dashboard-section {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .section-header h2 {
+            font-size: 1.3rem;
+            color: var(--dark-color);
+        }
+        
+        .section-header a {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin-bottom: 20px;
+        }
+        
+        .workout-card {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+        
+        .workout-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .workout-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--light-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+        
+        .workout-info {
+            flex: 1;
+        }
+        
+        .workout-info h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        .workout-info p {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+        
+        .workout-duration {
+            display: inline-block;
+            padding: 3px 8px;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .meal-card {
+            display: flex;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .meal-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+        
+        .meal-details {
+            flex: 1;
+            padding: 15px;
+            background-color: var(--white);
+        }
+        
+        .meal-details h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        .meal-details p {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        
+        .meal-macros {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .macro-item {
+            text-align: center;
+        }
+        
+        .macro-value {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .macro-label {
+            font-size: 0.7rem;
+            color: var(--text-light);
+        }
+        
+        .mobile-sidebar-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+            margin-right: 15px;
+        }
+        
+        @media (max-width: 992px) {
+            .sidebar {
+                left: -250px;
+            }
+            
+            .sidebar.active {
+                left: 0;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .mobile-sidebar-toggle {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .stats-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .stats-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .page-title {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-profile">
+                    <div class="user-avatar">JD</div>
+                    <div class="user-info">
+                        <h3>John Doe</h3>
+                        <p>Fitness Enthusiast</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div class="menu-item">
+                    <a href="dasboard.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="profile.html">
+                        <i class="fas fa-user"></i>
+                        <span>My Profile</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="workouts.html">
+                        <i class="fas fa-dumbbell"></i>
+                        <span>Workouts</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="diet.html">
+                        <i class="fas fa-utensils"></i>
+                        <span>Diet</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="progress.html" class="active">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Progress</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="challenges.html">
+                        <i class="fas fa-trophy"></i>
+                        <span>Challenges</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="community.html">
+                        <i class="fas fa-users"></i>
+                        <span>Community</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <button id="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>My Progress</h1>
+                    <p>Track your fitness journey and achievements</p>
+                </div>
+                <div class="mobile-sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+            
+            <div class="stats-cards">
+                <div class="stat-card primary">
+                    <h3>Current Weight</h3>
+                    <div class="stat-value">75.4 kg</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-down"></i> 1.2 kg lost this month
+                    </div>
+                </div>
+                <div class="stat-card secondary">
+                    <h3>Body Fat %</h3>
+                    <div class="stat-value">18.5%</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-down"></i> 2.1% decrease
+                    </div>
+                </div>
+                <div class="stat-card accent">
+                    <h3>Muscle Mass</h3>
+                    <div class="stat-value">+1.8 kg</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> Gained this month
+                    </div>
+                </div>
+                <div class="stat-card danger">
+                    <h3>BMI</h3>
+                    <div class="stat-value">24.1</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-down"></i> Healthy range
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2>Weight Progress</h2>
+                    <a href="#">View History</a>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="weightChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2>Workout Performance</h2>
+                        <a href="#">View All</a>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2>Body Measurements</h2>
+                        <a href="#">Edit</a>
+                    </div>
+                    
+                    <div class="measurements-grid">
+                        <div class="measurement-item">
+                            <h3>Chest</h3>
+                            <div class="measurement-value">98 cm</div>
+                            <div class="measurement-change positive">+2 cm</div>
+                        </div>
+                        <div class="measurement-item">
+                            <h3>Waist</h3>
+                            <div class="measurement-value">82 cm</div>
+                            <div class="measurement-change negative">-3 cm</div>
+                        </div>
+                        <div class="measurement-item">
+                            <h3>Arms</h3>
+                            <div class="measurement-value">34 cm</div>
+                            <div class="measurement-change positive">+1 cm</div>
+                        </div>
+                        <div class="measurement-item">
+                            <h3>Thighs</h3>
+                            <div class="measurement-value">54 cm</div>
+                            <div class="measurement-change neutral">No change</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2>Recent Achievements</h2>
+                    <a href="#">View All</a>
+                </div>
+                
+                <div class="achievements-list">
+                    <div class="achievement-item">
+                        <div class="achievement-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <div class="achievement-details">
+                            <h3>5K Personal Best</h3>
+                            <p>New record: 22:45 minutes</p>
+                            <span class="achievement-date">2 days ago</span>
+                        </div>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-icon">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <div class="achievement-details">
+                            <h3>Bench Press Milestone</h3>
+                            <p>Lifted 100kg for the first time</p>
+                            <span class="achievement-date">1 week ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Weight Chart
+            const weightCtx = document.getElementById('weightChart').getContext('2d');
+            const weightChart = new Chart(weightCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Weight (kg)',
+                        data: [79.2, 78.0, 77.1, 76.3, 75.8, 75.4],
+                        borderColor: '#4CAF50',
+                        backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 74,
+                            max: 80
+                        }
+                    }
+                }
+            });
+
+            // Performance Chart
+            const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+            const performanceChart = new Chart(performanceCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Squat', 'Bench Press', 'Deadlift', 'Pull-ups', '5K Run'],
+                    datasets: [{
+                        label: 'Current',
+                        data: [120, 100, 140, 12, 22.45],
+                        backgroundColor: '#2196F3',
+                    }, {
+                        label: 'Previous',
+                        data: [110, 90, 130, 8, 24.30],
+                        backgroundColor: '#BBDEFB',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Mobile sidebar toggle
+            const mobileToggle = document.querySelector('.mobile-sidebar-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            mobileToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+            });
+
+            // Logout functionality
+            const logoutBtn = document.getElementById('logout-btn');
+            logoutBtn.addEventListener('click', function() {
+                alert('You have been logged out. Redirecting to login page...');
+                window.location.href = 'login.html';
+            });
+        });
+    </script>
+</body>
+</html>
